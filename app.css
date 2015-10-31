@@ -1,3 +1,28 @@
 body {
-  padding:10px;
+  padding:0px;
+  margin:0px;
+}
+
+.navbar {
+	position: fixed;
+	background-color: #2f2f2f;
+	min-height: initial;
+	border: none;
+	border-radius: 0;
+	width: 100%;
+	padding: 5px;
+}
+
+#loginButton {
+	float: right;
+	display: inline;
+}
+
+#pageContent {
+	padding-top: 75px;
+}
+
+#pageTitle {
+	display: inline;
+	color: #196919;
 }

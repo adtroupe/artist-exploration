@@ -14,12 +14,18 @@
 	
 	<!-- Read scripts -->
 	<script src="app.js"></script>
+	<script src="nonApp.js"></script>
 	<link href="app.css" type="text/css" rel="stylesheet"/>	
 	
 </head>
 <body>
+	<nav class="navbar navbar-default">
+		<h1 id='pageTitle'>Spotify Shit</h1>
+		<button class="btn btn-primary" id='loginButton'>Login</button>
+	</nav>
+
 	<!-- Initiate app -->
-	<div ng-app="myApp" ng-controller="myCtrl">
+	<div ng-app="myApp" ng-controller="myCtrl" id='pageContent'>
 		<!-- Form -->
 		<form class="container" name="songForm">
 			<div class="form-group">
@@ -39,6 +45,64 @@
 			</ul>
 		</div>
 	</div>
+
+	<div class="modal fade" id='loginPopUp' role='dialog'>
+		<div class='modal-dialog'>
+			<div class='modal-content'>
+				<div class='modal-header'>
+					<button class='close' data-dismiss='modal'>&times;</button>
+					<h3>Login to ____</h3>
+				</div>
+				<div class='modal-body'>
+					<form>
+						<div class='form-group'>
+							<label for='username'>User Name:</label>
+							<input type='text' class='form-control' id='username' placeholder='Enter Your Username'>
+						</div>
+						<div class='form-group'>
+							<label for='password'>Password:</label>
+							<input type='password' class='form-control' id='password' placeholder='Enter Your Password'>
+						</div>
+						<div class='form-group'>
+							<button type='submit' class='btn btn-success btn-block'>Login</button>
+						</div>
+					</form>
+				</div>
+				<div class='modal-footer'>
+					<p>Not a member?</p>
+					<button class='btn btn-danger' id='signUpButton'>Sign Up</button>
+				</div>	
+			</div>
+		</div>
+	</div>
+	<div class='modal fade' id='signUpPopUp' role='dialog'>
+		<div class='modal-dialog'>
+			<div class='modal-content'>
+				<div class='modal-header'>
+					<button class='close' data-dismiss='modal'>&times;</button>
+					<h3>Create Account for ____</h3>
+				</div>
+				<div class='modal-body'>
+					<form>
+						<div class='form-group'>
+							<label for='username'>User Name:</label>
+							<input type='text' class='form-control' id='username' placeholder='Enter Your New Username'>
+						</div>
+						<div class='form-group'>
+							<label for='password'>Password:</label>
+							<input type='password' class='form-control' id='password' placeholder='Enter Your New Password'>
+						</div>
+						<div class='form-group'>
+							<label for='confirmPass'>Confirm Password:</label>
+							<input type='password' class='form-control' id='confirmPass' placeholder='Confirm Your New Password'>
+						</div>
+						<div class='form-group'>
+							<button type='submit' class='btn btn-success btn-block'>Create Account</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 </html>
