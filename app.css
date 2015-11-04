@@ -1,6 +1,9 @@
 body {
   padding:0px;
   margin:0px;
+  background-image: url('mountain.jpg');
+  background-position: absolute;
+  background-attachment: fixed;
 }
 
 .navbar {
@@ -31,7 +34,17 @@ body {
 	max-width: 100%;
 }
 
+.albumArtImg {
+	opacity: 0.75;
+}
+
 .albumArtDiv {
 	padding: 0;
+}
+
+.modal-content {
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
 }
 

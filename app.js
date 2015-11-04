@@ -1,6 +1,6 @@
 var data;
 var albumData;
-var albumCode;
+var albumName;
 
 var myBaseUrl = 'https://api.spotify.com/v1/'
 
@@ -10,12 +10,12 @@ var myApp = angular.module('myApp', [])
 
 var myCtrl = myApp.controller('myCtrl', function($scope, $http) {
   $scope.audioObject = {}
-  $scope.getSongs = function() {
-    $http.get(baseUrl + $scope.track).success(function(response){
-      data = $scope.tracks = response.tracks.items
+  // $scope.getSongs = function() {
+  //   $http.get(baseUrl + $scope.track).success(function(response){
+  //     data = $scope.tracks = response.tracks.items
       
-    })
-  }
+  //   })
+  // }
 
   $scope.myGetSongs = function() {
     $http.get(myBaseUrl + 'search?type=' + $scope.sType + '&query=' + $scope.sString + '&limit=1').success(function(response) {
@@ -36,12 +36,19 @@ var myCtrl = myApp.controller('myCtrl', function($scope, $http) {
   });
 
   $scope.getAlbumSongs = function(albumID) {
-    $http.get(myBaseUrl + 'albums/' + albumID + '/tracks').success(function(response) {
-      albumTracks = $scope.albumTracks = response.items;
+    $http.get(myBaseUrl + 'albums/' + albumID).success(function(response) {
+      albumInfo = $scope.albumInfo = response;
+      $scope.byLine = albumInfo.artists[0].name;
+      if(albumInfo.artists.length > 1){
+        for (var i = 1; i < albumInfo.artists.length - 1; i++) {
+          $scope.byLine += ', ' + albumInfo.artists[i].name;
+        };
+        $scope.byLine += ' & ' + albumInfo.artists[albumInfo.artists.length - 1].name;
+      };
+      $('#albumPopUp').modal();
+      $('#albumPopUp .modal-content').css('background-image', 'url('+albumInfo.images[0].url+')');
     })
-    $('#albumPopUp').modal();
   };
-
 
   $scope.play = function(song) {
     if($scope.currentSong == song) {

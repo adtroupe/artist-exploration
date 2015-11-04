@@ -104,12 +104,12 @@
 			<div class='modal-dialog'>
 				<div class='modal-content'>
 					<div class='modal-header'>
-						<h2>{{albumTracks}}</h2>
 						<button class='close' data-dismiss='modal'>&times;</button>
+						<h3>{{albumInfo.name + ' - ' + byLine}}</h3>
 					</div>
 					<div class='modal-body'>
 						<ol>
-							<li class='track' ng-repeat='tracks in albumTracks'>{{tracks.name}}</li>
+							<li class='track' ng-repeat='track in albumInfo.tracks.items' ng-click='play(track.preview_url)'>{{track.name}}</li>
 						</ol>
 					</div>
 				</div>
