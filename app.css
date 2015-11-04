@@ -13,7 +13,7 @@ body {
 	padding: 5px;
 }
 
-#loginButton {
+#loginButton, #exploreButton {
 	float: right;
 	display: inline;
 }
@@ -26,3 +26,12 @@ body {
 	display: inline;
 	color: #196919;
 }
+
+#artistImg, .albumArtImg {
+	max-width: 100%;
+}
+
+.albumArtDiv {
+	padding: 0;
+}
+

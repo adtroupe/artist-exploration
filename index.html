@@ -22,6 +22,7 @@
 	<nav class="navbar navbar-default">
 		<h1 id='pageTitle'>Spotify Shit</h1>
 		<button class="btn btn-primary" id='loginButton'>Login</button>
+		<button class="btn btn-primary" id='exploreButton'>Start Exploring!</button>
 	</nav>
 
 	<!-- Initiate app -->
@@ -44,9 +45,113 @@
 				<li ng-repeat="track in tracks" class="" ng-click="play(track.preview_url)" title="{{track.name}}">{{track.name + ', by ' + track.artists[0].name}}</li>
 			</ul>
 		</div>
+
+		<div class='container' id='results'>
+			<div class='row'>
+				<div class='col-md-2 col-sm-3 col-xs-12' ng-repeat='artist in artists'>
+					<img id='artistImg' src="{{artist.images[0].url}}">
+					<h3>{{artist.name}}</h3>
+					<div class='circle'>{{artist.popularity}}</div>
+					<p>Spotify Popularity Rating</p>
+					<div class='circle'>{{artist.followers.total}}</div>
+					<p>Total Spotify Followers</p>
+				</div>
+
+				<div class='col-md-10 col-sm-9 col-xs-12'>
+					<div class='row'>
+						<div ng-repeat='album in albums' class='albumArtDiv col-md-2 col-sm-3 col-xs-6'>
+							<img class='albumArtImg' alt='{{album.id}}'  src="{{album.images[1].url}}" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>				
+
+
+		<div class='modal fade' id='explorePopUp' role='dialog'>
+			<div class='modal-dialog'>
+				<div class='modal-content'>
+					<div class='modal-header'>
+						<button class='close' data-dismiss='modal'>&times;</button>
+						<h3>Start your Spotify search experience</h3>
+					</div>
+					<div class='modal-body'>
+						<form name='searchForm' novalidate>
+							<div class='form-group'>
+								<label for='searchType'>What type of search do you want?</label>
+								<select ng-model='sType' id='searchType' name='searchType' class='form-control'>
+									<option value='everything' selected>All of Spotify</option>
+									<option value='artist'>Artist Name</option>
+<!-- 								<option value='album'>Album Title</option>
+									<option value='track'>Track Title</option>
+									<option value='playlist'>Playlist Name</option> -->
+								</select>
+							</div>
+							<div class='form-group'>
+								<label for='searchString'>Start your Spotify Explore Search:</label>
+								<input ng-model='sString' id='searchString' name='search' placeholder='Enter your search..' class='form-control' ng-required='true' required/>
+							</div>
+							<div class='form-group'>
+								<button ng-click='myGetSongs()' class='btn btn-success btn-block' type='submit' ng-disabled='searchForm.search.$invalid'>Search!</button>
+							</div>						
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class='modal fade' id='albumPopUp' role='dialog'>
+			<div class='modal-dialog'>
+				<div class='modal-content'>
+					<div class='modal-header'>
+						<h2>{{albumTracks}}</h2>
+						<button class='close' data-dismiss='modal'>&times;</button>
+					</div>
+					<div class='modal-body'>
+						<ol>
+							<li class='track' ng-repeat='tracks in albumTracks'>{{tracks.name}}</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+
 	</div>
 
-	<div class="modal fade" id='loginPopUp' role='dialog'>
+<!-- 	<div class='modal fade' id='explorePopUp' role='dialog'>
+		<div class='modal-dialog'>
+			<div class='modal-content'>
+				<div class='modal-header'>
+					<button class='close' data-dismiss='modal'>&times;</button>
+					<h3>Start your Spotify search experience</h3>
+				</div>
+				<div class='modal-body'>
+					<form name='searchForm' novalidate>
+						<div class='form-group'>
+							<label for='searchType'>What type of search do you want?</label>
+							<select id='searchType' name='searchType' ng-modal='sType' class='form-control'>
+								<option value='everything' selected>All of Spotify</option>
+								<option value='artist'>Artist Name</option>
+								<option value='album'>Album Title</option>
+								<option value='track'>Track Title</option>
+								<option value='playlist'>Playlist Name</option>
+							</select>
+						</div>
+						<div class='form-group'>
+							<label for='searchString'>Start your Spotify Explore Search:</label>
+							<input id='searchString' name='search' placeholder='Enter your search..' class='form-control' required/>
+							<p ng-show='searchForm.search.$error.required'>sup</p>
+						</div>
+						<div class='form-group'>
+							<button class='btn btn-success btn-block' type='submit' ng-disabled='searchForm.$invalid'>Search!</button>
+						</div>						
+					</form>
+				</div>
+			</div>
+		</div>
+	</div> -->
+
+<!-- 	<div class="modal fade" id='loginPopUp' role='dialog'>
 		<div class='modal-dialog'>
 			<div class='modal-content'>
 				<div class='modal-header'>
@@ -103,6 +208,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 </body>
 </html>
