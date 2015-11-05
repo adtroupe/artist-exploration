@@ -17,23 +17,34 @@ var myCtrl = myApp.controller('myCtrl', function($scope, $http) {
   //   })
   // }
 
-  $scope.myGetSongs = function() {
-    $http.get(myBaseUrl + 'search?type=' + $scope.sType + '&query=' + $scope.sString + '&limit=1').success(function(response) {
+  $scope.getArtist = function(artistName) {
+    $http.get(myBaseUrl + 'search?type=artist&query=' + artistName + '&limit=1').success(function(response) {
       $('#explorePopUp').modal('hide');      
       data = $scope.artists = response.artists.items;
       $scope.getAlbums();
+      $scope.getRelated();
     })
   };
 
   $scope.getAlbums = function() {
-    $http.get(myBaseUrl + 'artists/' + data[0].id + '/albums?album_type=album&market=US&limit=8').success(function(response) {
+    $http.get(myBaseUrl + 'artists/' + data[0].id + '/albums?album_type=album,single&market=US&limit=8').success(function(response) {
       albumData = $scope.albums = response.items;
+    })
+  };
+
+  $scope.getRelated = function() {
+    $http.get(myBaseUrl + 'artists/' + data[0].id + '/related-artists').success(function(response) {
+      relatedData = $scope.relatedData = response.artists;
     })
   };
 
   $('#pageContent').on('click', '.albumArtImg', function() {
     $scope.getAlbumSongs(this.alt);
   });
+
+  $('#pageContent').on('click', '.relatedArtistDiv', function() {
+    $scope.getArtist(this.children[1].innerHTML);
+  })
 
   $scope.getAlbumSongs = function(albumID) {
     $http.get(myBaseUrl + 'albums/' + albumID).success(function(response) {
@@ -63,6 +74,12 @@ var myCtrl = myApp.controller('myCtrl', function($scope, $http) {
       $scope.currentSong = song
     }
   }
+
+  $('#albumPopUp').on('hidden.bs.modal', function() {
+    $scope.audioObject.pause()
+    $scope.currentSong = false    
+  })
+
 })
 
 // Add tool tips to anything with a title property

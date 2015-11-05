@@ -8,7 +8,7 @@ body {
 
 .navbar {
 	position: fixed;
-	background-color: #2f2f2f;
+	background-color: rgba(251, 201, 153, 0.25);
 	min-height: initial;
 	border: none;
 	border-radius: 0;
@@ -34,8 +34,24 @@ body {
 	max-width: 100%;
 }
 
+.relatedArtistDiv {
+	max-height: 100px;
+	margin-top: 20px;
+}
+
+.relatedArtistImg {
+	max-height: inherit;
+	max-width: 100%;
+	display: block;
+	margin: auto;
+}
+
+.relatedArtistName {
+	text-align: center;
+}
+
 .albumArtImg {
-	opacity: 0.75;
+	opacity: 0.65;
 }
 
 .albumArtDiv {

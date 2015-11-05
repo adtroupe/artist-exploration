@@ -28,7 +28,7 @@
 	<!-- Initiate app -->
 	<div ng-app="myApp" ng-controller="myCtrl" id='pageContent'>
 		<!-- Form -->
-		<form class="container" name="songForm">
+<!-- 		<form class="container" name="songForm">
 			<div class="form-group">
 				<label>Spotify search:</label>
 				<input name="search" placeholder="Enter your search.." ng-model="track" class="form-control"></input>
@@ -38,18 +38,18 @@
 			</div>
 		</form>
 		
-		<!-- Results -->
+		Results
 		<div class="container-fixed">
 			<p ng-show="tracks.length>0" class="help-block">Click to sample</p>
 			<ul>
 				<li ng-repeat="track in tracks" class="" ng-click="play(track.preview_url)" title="{{track.name}}">{{track.name + ', by ' + track.artists[0].name}}</li>
 			</ul>
-		</div>
+		</div> -->
 
 		<div class='container' id='results'>
 			<div class='row'>
 				<div class='col-md-2 col-sm-3 col-xs-12' ng-repeat='artist in artists'>
-					<img id='artistImg' src="{{artist.images[0].url}}">
+					<img id='artistImg' ng-src="{{artist.images[0].url}}">
 					<h3>{{artist.name}}</h3>
 					<div class='circle'>{{artist.popularity}}</div>
 					<p>Spotify Popularity Rating</p>
@@ -59,8 +59,16 @@
 
 				<div class='col-md-10 col-sm-9 col-xs-12'>
 					<div class='row'>
-						<div ng-repeat='album in albums' class='albumArtDiv col-md-2 col-sm-3 col-xs-6'>
-							<img class='albumArtImg' alt='{{album.id}}'  src="{{album.images[1].url}}" />
+						<div ng-repeat='album in albums' class='albumArtDiv col-md-2 col-sm-3 col-xs-4'>
+							<img class='albumArtImg' alt='{{album.id}}'  ng-src="{{album.images[1].url}}" />
+						</div>
+					</div>
+					<div class='row'>
+						<h3 ng-show='relatedData'>Related Artists</h3>
+						<h4 ng-show='relatedData'>Click to Select</h4>
+						<div ng-repeat='artist in relatedData | limitTo:6' class='relatedArtistDiv col-md-2 col-sm-3 col-xs-4'>
+							<img class='relatedArtistImg' ng-src='{{artist.images[1].url}}' />
+							<p class='relatedArtistName'>{{artist.name}}</p>
 						</div>
 					</div>
 				</div>
@@ -92,7 +100,7 @@
 								<input ng-model='sString' id='searchString' name='search' placeholder='Enter your search..' class='form-control' ng-required='true' required/>
 							</div>
 							<div class='form-group'>
-								<button ng-click='myGetSongs()' class='btn btn-success btn-block' type='submit' ng-disabled='searchForm.search.$invalid'>Search!</button>
+								<button ng-click='getArtist(sString)' class='btn btn-success btn-block' type='submit' ng-disabled='searchForm.search.$invalid'>Search!</button>
 							</div>						
 						</form>
 					</div>
@@ -104,7 +112,7 @@
 			<div class='modal-dialog'>
 				<div class='modal-content'>
 					<div class='modal-header'>
-						<button class='close' data-dismiss='modal'>&times;</button>
+						<button class='close' data-dismiss='modal' ng-click='stopMusic()'>&times;</button>
 						<h3>{{albumInfo.name + ' - ' + byLine}}</h3>
 					</div>
 					<div class='modal-body'>
