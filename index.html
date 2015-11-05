@@ -15,36 +15,28 @@
 	<!-- Read scripts -->
 	<script src="app.js"></script>
 	<script src="nonApp.js"></script>
-	<link href="app.css" type="text/css" rel="stylesheet"/>	
+	<link href="app.css" type="text/css" rel="stylesheet"/>
+	<link href='https://fonts.googleapis.com/css?family=Righteous|Varela+Round' rel='stylesheet' type='text/css'>
 	
 </head>
-<body>
-	<nav class="navbar navbar-default">
-		<h1 id='pageTitle'>Spotify Shit</h1>
-		<button class="btn btn-primary" id='loginButton'>Login</button>
-		<button class="btn btn-primary" id='exploreButton'>Start Exploring!</button>
+<body ng-app="myApp" ng-controller="myCtrl">
+	<nav ng-show='artists' class="navbar navbar-default">
+		<h2 id='pageTitle'>Spotify Artist Explorer</h2>
+		<button class="btn btn-primary" id='reset'>Reset Exploration</button>
 	</nav>
 
-	<!-- Initiate app -->
-	<div ng-app="myApp" ng-controller="myCtrl" id='pageContent'>
-		<!-- Form -->
-<!-- 		<form class="container" name="songForm">
-			<div class="form-group">
-				<label>Spotify search:</label>
-				<input name="search" placeholder="Enter your search.." ng-model="track" class="form-control"></input>
-			</div>
-			<div class="form-group">
-				<button ng-disabled="songForm.search.$invalid" class="btn btn-primary" ng-click="getSongs()" type="submit">Submit</button>
-			</div>
-		</form>
-		
-		Results
-		<div class="container-fixed">
-			<p ng-show="tracks.length>0" class="help-block">Click to sample</p>
-			<ul>
-				<li ng-repeat="track in tracks" class="" ng-click="play(track.preview_url)" title="{{track.name}}">{{track.name + ', by ' + track.artists[0].name}}</li>
-			</ul>
-		</div> -->
+ 	<div ng-show='!artists' class='outer'>
+ 		<div class='middle'>
+ 			<div class='inner'>
+ 				<h1>Welcome</h1>
+ 				<h2>to Spotify Artist Explorer</h2>
+ 				<button class="btn btn-danger" id='exploreButton'>Start Exploring!</button>
+ 			</div>
+ 		</div>
+ 	</div>
+
+ 	<!-- Initiate app -->
+	<div id='pageContent'>
 
 		<div class='container' id='results'>
 			<div class='row'>
@@ -63,13 +55,13 @@
 							<img class='albumArtImg' alt='{{album.id}}'  ng-src="{{album.images[1].url}}" />
 						</div>
 					</div>
-					<div class='row'>
-						<h3 ng-show='relatedData'>Related Artists</h3>
-						<h4 ng-show='relatedData'>Click to Select</h4>
-						<div ng-repeat='artist in relatedData | limitTo:6' class='relatedArtistDiv col-md-2 col-sm-3 col-xs-4'>
-							<img class='relatedArtistImg' ng-src='{{artist.images[1].url}}' />
-							<p class='relatedArtistName'>{{artist.name}}</p>
-						</div>
+				</div>
+				<div class='row'>
+					<h3 ng-show='relatedData'>Related Artists</h3>
+					<h4 ng-show='relatedData'>Click to Select</h4>
+					<div ng-repeat='artist in relatedData | limitTo:6' class='relatedArtistDiv col-md-2 col-sm-3 col-xs-4'>
+						<img class='relatedArtistImg' ng-src='{{artist.images[1].url}}' />
+						<p class='relatedArtistName'>{{artist.name}}</p>
 					</div>
 				</div>
 			</div>

@@ -6,9 +6,38 @@ body {
   background-attachment: fixed;
 }
 
+/*#mainScreenWelcome {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+}*/
+
+.outer {
+	display: table;
+	position: absolute;
+	height: 100%;
+	width: 100%;
+}
+
+.middle {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.inner {
+	margin-left: auto;
+	margin-right: auto;
+	width: 375px;
+	text-align: center;
+	background-color: rgba(251, 201, 153, 0.45);
+	border-radius: 50%;
+	padding-top: 109px;
+	padding-bottom: 109px;
+}
+
 .navbar {
 	position: fixed;
-	background-color: rgba(251, 201, 153, 0.25);
+	background-color: rgba(251, 201, 153, 0.35);
 	min-height: initial;
 	border: none;
 	border-radius: 0;
@@ -16,7 +45,7 @@ body {
 	padding: 5px;
 }
 
-#loginButton, #exploreButton {
+#reset {
 	float: right;
 	display: inline;
 }
@@ -62,5 +91,12 @@ body {
 	background-size: contain;
 	background-repeat: no-repeat;
 	background-position: center;
+	background-color: rgba(251, 201, 153, 0.9);
 }
 
+h1 {
+	font-family: 'Righteous', sans-serif;
+}
+ h2 {
+ 	font-family: 'Varela Round', sans-serif;
+ }

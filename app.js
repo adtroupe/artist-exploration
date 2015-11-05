@@ -26,11 +26,26 @@ var myCtrl = myApp.controller('myCtrl', function($scope, $http) {
     })
   };
 
+
   $scope.getAlbums = function() {
-    $http.get(myBaseUrl + 'artists/' + data[0].id + '/albums?album_type=album,single&market=US&limit=8').success(function(response) {
+    $http.get(myBaseUrl + 'artists/' + data[0].id + '/albums?album_type=album,single&market=US&limit=18').success(function(response) {
       albumData = $scope.albums = response.items;
     })
   };
+
+  myApp.filter('uniq', function() {
+    return function(input, key) {
+      var unique = {};
+      var uniqueList = [];
+      for(var i = 0; i < input.length; i++){
+        if(typeof unique[input[i][key]] == "undefined"){
+          unique[input[i][key]] = "";
+          uniqueList.push(input[i]);
+        }
+      }
+      return uniqueList;
+    };
+  });
 
   $scope.getRelated = function() {
     $http.get(myBaseUrl + 'artists/' + data[0].id + '/related-artists').success(function(response) {
@@ -44,7 +59,7 @@ var myCtrl = myApp.controller('myCtrl', function($scope, $http) {
 
   $('#pageContent').on('click', '.relatedArtistDiv', function() {
     $scope.getArtist(this.children[1].innerHTML);
-  })
+  });
 
   $scope.getAlbumSongs = function(albumID) {
     $http.get(myBaseUrl + 'albums/' + albumID).success(function(response) {
