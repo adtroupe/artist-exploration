@@ -29,6 +29,12 @@
 		padding-top: 52px;
 		padding-bottom: 52px;
 	}
+
+	#albumHeading {
+	background-color: rgba(251, 201, 153, 0.75);
+	padding: 5px;
+	border-radius: 10px;
+	}
 }
 
 body {
@@ -128,20 +134,22 @@ p {
 
 .albumArtDiv {
 	max-width: 100%;
-	max-height: 100%;
-}
-
-#albumHeading {
-	background-color: rgba(251, 201, 153, 0.75);
-	padding: 5px;
-	border-radius: 10px;
+	overflow: hidden;
 }
 
 .albumArtImg {
-	object-fit: cover;
 	max-width: 100%;
-	max-height: 100%;
 }
+
+/*.albumArtDiv {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	padding-bottom: 100%;
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+}*/
 
 
 #relatedSection, .relatedArtistDiv {

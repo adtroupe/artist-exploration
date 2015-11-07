@@ -10,7 +10,4 @@ $(document).ready(function(){
   $('#reset').on('click', function() {
   	$('#explorePopUp').modal();
   })
-  // $('#pageContent').on('click', '.albumArtImg', function() {
-  // 	alert(this.src + '   ' + this.alt +  '   ' );
-  // });
 });

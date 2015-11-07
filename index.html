@@ -57,11 +57,12 @@
 					</div>
 				</div>
 				<div class='col-md-10 col-sm-9 col-xs-12'>
-					<div class='row'>
+					<div class='row-fluid'>
 						<h3><span id='albumHeading'>Click on an album to view songs:</span></h3>
 						<div ng-repeat='album in albums' class='albumArtDiv col-md-2 col-sm-3 col-xs-4'>
 							<img class='albumArtImg' alt='{{album.id}}'  ng-src="{{album.images[1].url}}" />
 						</div>
+						<!-- <div ng-repeat='album in albums' class='albumArtDiv col-md-2 col-sm-3 col-xs-4' image='{{album.id}}' style:'background-img: url({{album.images[1].url}});'></div> -->
 					</div>
 				</div>
 			</div>				

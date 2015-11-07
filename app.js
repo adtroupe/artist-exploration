@@ -57,6 +57,10 @@ var myCtrl = myApp.controller('myCtrl', function($scope, $http) {
     $scope.getAlbumSongs(this.alt);
   });
 
+  // $('#pageContent').on('click', '.albumArtDiv', function() {
+  //   $scope.getAlbumSongs(this.image);
+  // });
+
   $('#pageContent').on('click', '.relatedArtistDiv', function() {
     $scope.getArtist(this.children[1].innerHTML);
   });
