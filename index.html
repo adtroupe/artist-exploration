@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Artist Exploration</title>
 	
-	<!-- Include libraries -->
+	<!-- libraries -->
 	<script src="https://code.jquery.com/jquery.min.js"></script>
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js"></script>
 	
-	<!-- Read scripts -->
+	<!-- scripts -->
 	<script src="app.js"></script>
 	<script src="nonApp.js"></script>
 	<link href="app.css" type="text/css" rel="stylesheet"/>
@@ -21,13 +21,17 @@
 	<link rel="icon" href="spotify.png" />
 
 </head>
+
+<!--Initiated app and controller-->
 <body ng-app="myApp" ng-controller="myCtrl">
+	<!--Navigation bar for page when artist is selected-->
 	<nav ng-show='artists' class="navbar navbar-default">
 		<img id='logo' src="spotify.png">
 		<h2 class='navbarHeading'>Artist Explorer</h2>
 		<button class="btn btn-danger" id='reset'>Reset Exploration</button>
 	</nav>
 
+	<!--Initial home page-->
  	<div ng-show='!artists' class='outer'>
  		<div class='middle'>
  			<div class='inner'>
@@ -38,7 +42,7 @@
  		</div>
  	</div>
 
- 	<!-- Initiate app -->
+ 	<!--Page contents of searched artists-->
 	<div id='pageContent' class='container'>
 		<div id='results' ng-show='relatedData'>
 			<div class='row'>
@@ -62,7 +66,6 @@
 						<div ng-repeat='album in albums' class='albumArtDiv col-md-2 col-sm-3 col-xs-4'>
 							<img class='albumArtImg' alt='{{album.id}}'  ng-src="{{album.images[1].url}}" />
 						</div>
-						<!-- <div ng-repeat='album in albums' class='albumArtDiv col-md-2 col-sm-3 col-xs-4' image='{{album.id}}' style:'background-img: url({{album.images[1].url}});'></div> -->
 					</div>
 				</div>
 			</div>				
@@ -76,6 +79,7 @@
 			</div>
 		</div>				
 
+		<!--Explore artist pop up modal-->
 		<div class='modal fade' id='explorePopUp' role='dialog'>
 			<div class='modal-dialog'>
 				<div class='modal-content'>
@@ -98,6 +102,7 @@
 			</div>
 		</div>
 
+		<!--Album Information Pop Up Modal-->
 		<div class='modal fade' id='albumPopUp' role='dialog'>
 			<div class='modal-dialog'>
 				<div class='modal-content'>

@@ -1,22 +1,11 @@
 var data;
 var albumData;
-var albumName;
-
 var myBaseUrl = 'https://api.spotify.com/v1/'
-
-var baseUrl = 'https://api.spotify.com/v1/search?type=track&query='
-
 var myApp = angular.module('myApp', [])
-
 var myCtrl = myApp.controller('myCtrl', function($scope, $http) {
   $scope.audioObject = {}
-  // $scope.getSongs = function() {
-  //   $http.get(baseUrl + $scope.track).success(function(response){
-  //     data = $scope.tracks = response.tracks.items
-      
-  //   })
-  // }
 
+  //Get artist function based on a passed artist name
   $scope.getArtist = function(artistName) {
     $http.get(myBaseUrl + 'search?type=artist&query=' + artistName + '&limit=1').success(function(response) {
       $('#explorePopUp').modal('hide');      
@@ -26,45 +15,31 @@ var myCtrl = myApp.controller('myCtrl', function($scope, $http) {
     })
   };
 
-
+  //Retrieves the albums based on the artist given
   $scope.getAlbums = function() {
     $http.get(myBaseUrl + 'artists/' + data[0].id + '/albums?album_type=album,single&market=US&limit=18').success(function(response) {
       albumData = $scope.albums = response.items;
     })
   };
 
-  myApp.filter('uniq', function() {
-    return function(input, key) {
-      var unique = {};
-      var uniqueList = [];
-      for(var i = 0; i < input.length; i++){
-        if(typeof unique[input[i][key]] == "undefined"){
-          unique[input[i][key]] = "";
-          uniqueList.push(input[i]);
-        }
-      }
-      return uniqueList;
-    };
-  });
-
+  //Retrieves related artists based on the artist given
   $scope.getRelated = function() {
     $http.get(myBaseUrl + 'artists/' + data[0].id + '/related-artists').success(function(response) {
       relatedData = $scope.relatedData = response.artists;
     })
   };
 
+  //Creates pop up when an album is clicked
   $('#pageContent').on('click', '.albumArtImg', function() {
     $scope.getAlbumSongs(this.alt);
   });
 
-  // $('#pageContent').on('click', '.albumArtDiv', function() {
-  //   $scope.getAlbumSongs(this.image);
-  // });
-
+  //Changes artist in focus on click of related artist
   $('#pageContent').on('click', '.relatedArtistDiv', function() {
     $scope.getArtist(this.children[1].innerHTML);
   });
 
+  //Retrieves the album information based on an albumID 
   $scope.getAlbumSongs = function(albumID) {
     $http.get(myBaseUrl + 'albums/' + albumID).success(function(response) {
       albumInfo = $scope.albumInfo = response;
@@ -76,10 +51,10 @@ var myCtrl = myApp.controller('myCtrl', function($scope, $http) {
         $scope.byLine += ' & ' + albumInfo.artists[albumInfo.artists.length - 1].name;
       };
       $('#albumPopUp').modal();
-      // $('#albumPopUp .modal-content').css('background-image', 'url('+albumInfo.images[0].url+')');
     })
   };
 
+  //Triggers when songs are played or paused
   $scope.play = function(song) {
     if($scope.currentSong == song) {
       $scope.audioObject.pause()
@@ -93,17 +68,23 @@ var myCtrl = myApp.controller('myCtrl', function($scope, $http) {
       $scope.currentSong = song
     }
   }
-
   $('#albumPopUp').on('hidden.bs.modal', function() {
     $scope.audioObject.pause()
     $scope.currentSong = false    
   })
 
-})
-
-// Add tool tips to anything with a title property
-$('body').tooltip({
-    selector: '[title]'
 });
 
-
+//Triggers modal pop ups on button clicks
+$(document).ready(function(){
+  $('#signUpButton').on('click', function() {
+    $('#loginPopUp').modal('hide');
+    $('#signUpPopUp').modal();
+  });
+  $('#exploreButton').on('click', function() {
+    $('#explorePopUp').modal();
+  });
+  $('#reset').on('click', function() {
+    $('#explorePopUp').modal();
+  })
+});

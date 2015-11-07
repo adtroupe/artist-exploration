@@ -3,33 +3,26 @@
 	h2 {
 		font-size: 20px;
 	}
-
 	.navbar > .navbarHeading {
 		display: none;
 	}
-
 	h3 {
 		font-size: 18px;
 	}
-
 	h4 {
 		font-size: 16px;
 	}
-
 	p {
 		font-size: 14px;
 	}
-
 	li {
 		font-size: 12px;
 	}
-
 	.outer>.middle>.inner {
 		width: 250px;
 		padding-top: 52px;
 		padding-bottom: 52px;
 	}
-
 	#albumHeading {
 	background-color: rgba(251, 201, 153, 0.75);
 	padding: 5px;
@@ -141,17 +134,6 @@ p {
 	max-width: 100%;
 }
 
-/*.albumArtDiv {
-	position: relative;
-	width: 100%;
-	height: 100%;
-	padding-bottom: 100%;
-	background-repeat: no-repeat;
-	background-position: center center;
-	background-size: cover;
-}*/
-
-
 #relatedSection, .relatedArtistDiv {
 	margin-top: 20px;
 }
@@ -194,9 +176,11 @@ p {
 h1 {
 	font-family: 'Righteous', sans-serif;
 }
+
 h2 {
 	font-family: 'Varela Round', sans-serif;
 }
+
 h3 {
 	margin-top: 5px;
 	font-family: 'Varela Round', sans-serif;
