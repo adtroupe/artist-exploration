@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Spotify Template</title>
+	<title>Artist Exploration</title>
 	
 	<!-- Include libraries -->
 	<script src="https://code.jquery.com/jquery.min.js"></script>
@@ -17,12 +17,15 @@
 	<script src="nonApp.js"></script>
 	<link href="app.css" type="text/css" rel="stylesheet"/>
 	<link href='https://fonts.googleapis.com/css?family=Righteous|Varela+Round' rel='stylesheet' type='text/css'>
-	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	<link rel="icon" href="spotify.png" />
+
 </head>
 <body ng-app="myApp" ng-controller="myCtrl">
 	<nav ng-show='artists' class="navbar navbar-default">
-		<h2 id='pageTitle'>Spotify Artist Explorer</h2>
-		<button class="btn btn-primary" id='reset'>Reset Exploration</button>
+		<img id='logo' src="spotify.png">
+		<h2 class='navbarHeading'>Artist Explorer</h2>
+		<button class="btn btn-danger" id='reset'>Reset Exploration</button>
 	</nav>
 
  	<div ng-show='!artists' class='outer'>
@@ -36,37 +39,41 @@
  	</div>
 
  	<!-- Initiate app -->
-	<div id='pageContent'>
-
-		<div class='container' id='results'>
+	<div id='pageContent' class='container'>
+		<div id='results' ng-show='relatedData'>
 			<div class='row'>
-				<div class='col-md-2 col-sm-3 col-xs-12' ng-repeat='artist in artists'>
-					<img id='artistImg' ng-src="{{artist.images[0].url}}">
-					<h3>{{artist.name}}</h3>
-					<div class='circle'>{{artist.popularity}}</div>
-					<p>Spotify Popularity Rating</p>
-					<div class='circle'>{{artist.followers.total}}</div>
-					<p>Total Spotify Followers</p>
+				<div id='currentArtist' class='col-md-2 col-sm-3 col-xs-12' ng-repeat='artist in artists'>
+					<div class='row'>
+						<div class='col-sm-12 col-xs-8'>
+							<img id='artistImg' ng-src="{{artist.images[0].url}}">
+						</div>
+						<div id='currentArtistInfo' class='col-sm-12 col-xs-4'>
+							<h3>{{artist.name}}</h3>
+							<div class='circle'>{{artist.popularity}}</div>
+							<p>Popularity Rating</p>
+							<div class='circle'>{{artist.followers.total}}</div>
+							<p>Followers</p>
+						</div>
+					</div>
 				</div>
-
 				<div class='col-md-10 col-sm-9 col-xs-12'>
 					<div class='row'>
+						<h3><span id='albumHeading'>Click on an album to view songs:</span></h3>
 						<div ng-repeat='album in albums' class='albumArtDiv col-md-2 col-sm-3 col-xs-4'>
 							<img class='albumArtImg' alt='{{album.id}}'  ng-src="{{album.images[1].url}}" />
 						</div>
 					</div>
 				</div>
-				<div class='row'>
-					<h3 ng-show='relatedData'>Related Artists</h3>
-					<h4 ng-show='relatedData'>Click to Select</h4>
-					<div ng-repeat='artist in relatedData | limitTo:6' class='relatedArtistDiv col-md-2 col-sm-3 col-xs-4'>
-						<img class='relatedArtistImg' ng-src='{{artist.images[1].url}}' />
-						<p class='relatedArtistName'>{{artist.name}}</p>
-					</div>
+			</div>				
+			<div class='row' id='relatedSection'>
+				<h3>Related Artists</h3>
+				<h4>Click to Select:</h4>
+				<div ng-repeat='artist in relatedData | limitTo:6' class='relatedArtistDiv col-md-2 col-sm-3 col-xs-4'>
+					<img class='relatedArtistImg' ng-src='{{artist.images[1].url}}' />
+					<p class='relatedArtistName'>{{artist.name}}</p>
 				</div>
 			</div>
 		</div>				
-
 
 		<div class='modal fade' id='explorePopUp' role='dialog'>
 			<div class='modal-dialog'>
@@ -78,21 +85,11 @@
 					<div class='modal-body'>
 						<form name='searchForm' novalidate>
 							<div class='form-group'>
-								<label for='searchType'>What type of search do you want?</label>
-								<select ng-model='sType' id='searchType' name='searchType' class='form-control'>
-									<option value='everything' selected>All of Spotify</option>
-									<option value='artist'>Artist Name</option>
-<!-- 								<option value='album'>Album Title</option>
-									<option value='track'>Track Title</option>
-									<option value='playlist'>Playlist Name</option> -->
-								</select>
-							</div>
-							<div class='form-group'>
-								<label for='searchString'>Start your Spotify Explore Search:</label>
+								<label for='searchString'>Start your Spotify Explore Search by Selecting an Artist:</label>
 								<input ng-model='sString' id='searchString' name='search' placeholder='Enter your search..' class='form-control' ng-required='true' required/>
 							</div>
 							<div class='form-group'>
-								<button ng-click='getArtist(sString)' class='btn btn-success btn-block' type='submit' ng-disabled='searchForm.search.$invalid'>Search!</button>
+								<button ng-click='getArtist(sString)' class='btn btn-danger btn-block' type='submit' ng-disabled='searchForm.search.$invalid'>Search!</button>
 							</div>						
 						</form>
 					</div>
@@ -108,6 +105,7 @@
 						<h3>{{albumInfo.name + ' - ' + byLine}}</h3>
 					</div>
 					<div class='modal-body'>
+						<p>Click on a song to play:</p>
 						<ol>
 							<li class='track' ng-repeat='track in albumInfo.tracks.items' ng-click='play(track.preview_url)'>{{track.name}}</li>
 						</ol>
@@ -115,99 +113,7 @@
 				</div>
 			</div>
 		</div>
-
 	</div>
 
-<!-- 	<div class='modal fade' id='explorePopUp' role='dialog'>
-		<div class='modal-dialog'>
-			<div class='modal-content'>
-				<div class='modal-header'>
-					<button class='close' data-dismiss='modal'>&times;</button>
-					<h3>Start your Spotify search experience</h3>
-				</div>
-				<div class='modal-body'>
-					<form name='searchForm' novalidate>
-						<div class='form-group'>
-							<label for='searchType'>What type of search do you want?</label>
-							<select id='searchType' name='searchType' ng-modal='sType' class='form-control'>
-								<option value='everything' selected>All of Spotify</option>
-								<option value='artist'>Artist Name</option>
-								<option value='album'>Album Title</option>
-								<option value='track'>Track Title</option>
-								<option value='playlist'>Playlist Name</option>
-							</select>
-						</div>
-						<div class='form-group'>
-							<label for='searchString'>Start your Spotify Explore Search:</label>
-							<input id='searchString' name='search' placeholder='Enter your search..' class='form-control' required/>
-							<p ng-show='searchForm.search.$error.required'>sup</p>
-						</div>
-						<div class='form-group'>
-							<button class='btn btn-success btn-block' type='submit' ng-disabled='searchForm.$invalid'>Search!</button>
-						</div>						
-					</form>
-				</div>
-			</div>
-		</div>
-	</div> -->
-
-<!-- 	<div class="modal fade" id='loginPopUp' role='dialog'>
-		<div class='modal-dialog'>
-			<div class='modal-content'>
-				<div class='modal-header'>
-					<button class='close' data-dismiss='modal'>&times;</button>
-					<h3>Login to ____</h3>
-				</div>
-				<div class='modal-body'>
-					<form>
-						<div class='form-group'>
-							<label for='username'>User Name:</label>
-							<input type='text' class='form-control' id='username' placeholder='Enter Your Username'>
-						</div>
-						<div class='form-group'>
-							<label for='password'>Password:</label>
-							<input type='password' class='form-control' id='password' placeholder='Enter Your Password'>
-						</div>
-						<div class='form-group'>
-							<button type='submit' class='btn btn-success btn-block'>Login</button>
-						</div>
-					</form>
-				</div>
-				<div class='modal-footer'>
-					<p>Not a member?</p>
-					<button class='btn btn-danger' id='signUpButton'>Sign Up</button>
-				</div>	
-			</div>
-		</div>
-	</div>
-	<div class='modal fade' id='signUpPopUp' role='dialog'>
-		<div class='modal-dialog'>
-			<div class='modal-content'>
-				<div class='modal-header'>
-					<button class='close' data-dismiss='modal'>&times;</button>
-					<h3>Create Account for ____</h3>
-				</div>
-				<div class='modal-body'>
-					<form>
-						<div class='form-group'>
-							<label for='username'>User Name:</label>
-							<input type='text' class='form-control' id='username' placeholder='Enter Your New Username'>
-						</div>
-						<div class='form-group'>
-							<label for='password'>Password:</label>
-							<input type='password' class='form-control' id='password' placeholder='Enter Your New Password'>
-						</div>
-						<div class='form-group'>
-							<label for='confirmPass'>Confirm Password:</label>
-							<input type='password' class='form-control' id='confirmPass' placeholder='Confirm Your New Password'>
-						</div>
-						<div class='form-group'>
-							<button type='submit' class='btn btn-success btn-block'>Create Account</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div> -->
 </body>
 </html>

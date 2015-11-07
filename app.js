@@ -72,7 +72,7 @@ var myCtrl = myApp.controller('myCtrl', function($scope, $http) {
         $scope.byLine += ' & ' + albumInfo.artists[albumInfo.artists.length - 1].name;
       };
       $('#albumPopUp').modal();
-      $('#albumPopUp .modal-content').css('background-image', 'url('+albumInfo.images[0].url+')');
+      // $('#albumPopUp .modal-content').css('background-image', 'url('+albumInfo.images[0].url+')');
     })
   };
 
