@@ -6,6 +6,7 @@ To explore information about an artist, view their albums and songs, and see rel
 
 What is the URL of this project on your student web-server?
 
+http://students.washington.edu/adtroupe/info343/artist-exploration/
 
 
 
