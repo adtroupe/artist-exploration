@@ -69,8 +69,11 @@ var myCtrl = myApp.controller('myCtrl', function($scope, $http) {
     }
   }
   $('#albumPopUp').on('hidden.bs.modal', function() {
-    $scope.audioObject.pause()
-    $scope.currentSong = false    
+    if(!$.isEmptyObject($scope.audioObject)) {
+      $scope.audioObject.pause()
+    }
+    $scope.currentSong = false
+    return    
   })
 
 });

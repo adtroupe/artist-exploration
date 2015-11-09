@@ -14,7 +14,6 @@
 	
 	<!-- scripts -->
 	<script src="app.js"></script>
-	<script src="nonApp.js"></script>
 	<link href="app.css" type="text/css" rel="stylesheet"/>
 	<link href='https://fonts.googleapis.com/css?family=Righteous|Varela+Round' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -91,7 +90,8 @@
 						<form name='searchForm' novalidate>
 							<div class='form-group'>
 								<label for='searchString'>Start your Spotify Explore Search by Selecting an Artist:</label>
-								<input ng-model='sString' id='searchString' name='search' placeholder='Enter your search..' class='form-control' ng-required='true' required/>
+								<input ng-model='sString' id='searchString' name='search' placeholder='Enter your search..' class='form-control' ng-required='true' ng-minlength='3' required/>
+								<p ng-show='searchForm.search.$error.minlength' class='help-block'>Search string is too short</p>
 							</div>
 							<div class='form-group'>
 								<button ng-click='getArtist(sString)' class='btn btn-danger btn-block' type='submit' ng-disabled='searchForm.search.$invalid'>Search!</button>
